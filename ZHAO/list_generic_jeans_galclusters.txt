@@ -1,0 +1,46 @@
+#************************************************************************************************************
+# CLUMPY v3.0 formatted:
+# --------------------------
+#
+# The list below is the working list of CLUMPY haloes for a Jeans analysis
+#
+#
+# Format:
+#  - a line starting with # (or a blanck line) is discarded
+#  - Name: name of your object
+#  - Type: DSPH, CLUSTER, or GALAXY (for external galaxies)
+#  - Rdelta: Virial radius of the Dark matter halo (used as truncation radius of the halo for astrophysical factors)
+#  - Rmax: Maximum integration radius for Jeans analysis
+#  - 'DATA': Velocity or Light data of the object, if available. Files must be in the same folder as this file
+#     or given as absolute path. The data are drawn on the canvas, except if the entry is set to "-"
+#  - 'DM DISTRIBUTION (RHO_TOT)': structural parameters for the total DM distribution (see profiles.h)
+#  - 'LIGHT PROFILE': structural parameters for the light profile (see jeans_analysis.h)
+#  - 'ANISOTROPY PROFILE': structural parameters for the anisotropy profile (see jeans_analysis.h)
+#
+# N.B.:
+#  1. A DM shape is always defined by a DM family (gENUM_PROFILE),
+#     3 shape parameters (#1 #2 #3), a normalisation and a scale radius.
+#  2. A Light profile is always defined by a Light family (gENUM_LIGHTPROFILE),
+#     3 shape parameters (#1 #2 #3), a normalisation and a scale radius.
+#  3. An Anisotropy profile is always defined by a Anisotropy family (gENUM_ANISOTROPYPROFILE),
+#     and by 4 parameters: beta_0 (if Constant or Baes profiles), beta_infinity (if Baes ), scale radius (if Baes or Osipkov),
+#     and sharpness of the transition (if Baes).
+#  4. An optionnal Gas profile, which is always defined by a DM family (gENUM_PROFILE),
+#     3 shape parameters (#1 #2 #3), a normalisation and a scale radius.
+#
+#*********************************************************************************************************************************************************************************************************************************#
+#     [OBJECT SIZE]           |           [DATA]           |         DM DISTRIBUTION (RHO_TOT)        |             Light Profile                |        Anisotropy  Profile         |          Gas Profile [optional]           #
+# Name    Type   Rdelta Rmax  |    Vel            Light    |  rhos       rs     prof.   #1   #2   #3  |     L        rs*    prof.   #1   #2   #3 | beta_0 beta_inf  prof.   ra   eta  |    rhos      rs*    prof.   #1   #2   #3  #
+#  -        -    [kpc]  [kpc] |     -               -      |[Msol/kpc3]  [kpc]  [enum]    -    -    - |[Lsol/kpc3]  [kpc]  [enum]    -    -    - |   -       -     [enum]   kpc   -   |[Msol/kpc3]  [kpc]  [enum]    -    -    -  #
+#*********************************************************************************************************************************************************************************************************************************#
+ M15  CLUSTER     0.067   500. $HOME/Desktop/MAGIC/CLUMPY/BURKERT/Data/M15_data_vel_U21.txt $HOME/Desktop/MAGIC/CLUMPY/BURKERT/Data/M15_data_light.dat  4.92e11    0.14   kZHAO    0.17 4.0  1.0  7.3e10  5.5e-4  kKING2D   1.0  3.0  1.0   0.34   -3.71   kBAES   1.26  2.26
+# Test1  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kZHAO    1.0  4.0  1.0  5.522e7      1.5  kZHAO3D   1.0  4.0  1.0   -1.   1.   kCONSTANT   1.0  4.0       1.e-3      1.    kZHAO    1     3    1
+# Test2  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kEINASTO 0.17 4.0  1.0  5.522e7      1.5  kZHAO3D   1.0  4.0  1.0   -1.   1.   kCONSTANT   1.0  4.0
+# Test3  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kEINASTO_N  2 4.0  1.0  5.522e7      1.5  kZHAO3D   1.0  4.0  1.0   -1.   1.   kCONSTANT   1.0  4.0
+# Test4  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kZHAO    1.0  4.0  1.0  5.522e7      1.5  kPLUMMER2D 1.0 4.0  1.0   -1.   1.   kCONSTANT   1.0  4.0
+# Test5  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kZHAO    1.0  4.0  1.0  5.522e7      1.5  kEXP2D    1.0  4.0  1.0   -1.   1.   kCONSTANT   1.0  4.0
+# Test6  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kZHAO    1.0  4.0  1.0  5.522e7      1.5  kEXP3D    1.0  4.0  1.0   -1.   1.   kCONSTANT   1.0  4.0
+# Test7  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kZHAO    1.0  4.0  1.0  5.522e7      1.5  kKING2D   10.  4.0  1.0   -1.   1.   kCONSTANT   1.0  4.0
+# Test8  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kZHAO    1.0  4.0  1.0  5.522e7      1.5  kSERSIC2D 2.0  4.0  1.0   -1.   1.   kCONSTANT   1.0  4.0
+# Test9  CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kZHAO    1.0  4.0  1.0  5.522e7      1.5  kZHAO3D   1.0  4.0  1.0   -1.   1.   kBAES       1.0  4.0
+# Test10 CLUSTER     10.   500. data_sigmap.txt data_light.txt  5.522e7    1.5   kZHAO    1.0  4.0  1.0  5.522e7      1.5  kZHAO3D   1.0  4.0  1.0   -1.   1.   kOSIPKOV    1.0  4.0

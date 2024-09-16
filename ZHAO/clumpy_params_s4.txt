@@ -1,0 +1,18 @@
+# CLUMPY, version v3.1
+# Standard parameter file for simulation mode s4
+# Execute with $CLUMPY/bin/clumpy -s4 -i clumpy_params_s4.txt 
+
+# Variable name                         Unit           Value             (Format)          (Comment)
+
+#------------------------------------------------------------------------------
+# Dark Matter global parameters
+#------------------------------------------------------------------------------
+gDM_FLAG_TIDALCUT                       [-]            kNONE             <string>          If subhalo Rvir is truncated by host potential
+
+#------------------------------------------------------------------------------
+# Statistical analysis of single halo
+#------------------------------------------------------------------------------
+gSTAT_CL                                [-]            0.68              <float>           CL percentage for which to search the min/max
+gSTAT_FILES                             [-]            $HOME/Desktop/MAGIC/CLUMPY/ZHAO/OutputMCMC_ZHAO.dat    <string>          Stat. analysis file / file containing filenames
+gSTAT_MODE                              [-]            0                 <integer>         Mode: 0:PDF, 1:chi2, 2:both, 3:mean&dispersion
+gSTAT_IS_COMBINE_CHAINS                 [-]            0                 <boolean (0/1)>   If true, analyze list of chains together

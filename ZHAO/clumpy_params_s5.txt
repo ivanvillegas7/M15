@@ -1,0 +1,32 @@
+# CLUMPY, version v3.1
+# Standard parameter file for simulation mode s5
+# Execute with $CLUMPY/bin/clumpy -s5 -i clumpy_params_s5.txt 
+
+# Variable name                         Unit           Value             (Format)          (Comment)
+
+#------------------------------------------------------------------------------
+# Dark Matter global parameters
+#------------------------------------------------------------------------------
+gDM_RHOSAT                              [Msol/kpc^3]   1e+19             <float>           Dark Matter saturation density
+gDM_FLAG_TIDALCUT                       [-]            kNONE             <string>          If subhalo Rvir is truncated by host potential
+
+#------------------------------------------------------------------------------
+# Statistical analysis of single halo
+#------------------------------------------------------------------------------
+gSTAT_CL_LIST                           [-]            0.68,0.95         <string>          List of x% CL to be drawn
+gSTAT_FILES                             [-]            $HOME/Desktop/MAGIC/CLUMPY/ZHAO/OutputMCMC_ZHAO.dat    <string>          Stat. analysis file / file containing filenames
+gSTAT_MODE                              [-]            0                 <integer>         Mode: 0:PDF, 1:chi2, 2:both, 3:mean&dispersion
+gSTAT_IS_COMBINE_CHAINS                 [-]            0                 <boolean (0/1)>   If true, analyze list of chains together
+
+#------------------------------------------------------------------------------
+# Simulation parameters
+#  Some parameters can be set to default values respectively automatically
+#  adapted by setting to -1 (see documentation).
+#  gSIM_OUTPUT_DIR: when set to -1, set to folder from where clumpy is executed.
+#  gSIM_SEED: if=0, seed is chosen from computer clock (for drawing clumps)
+#------------------------------------------------------------------------------
+gSIM_NX                                 [-]            10000               <integer>         # of points at which 1D calculation is done
+gSIM_IS_ASTRO_OR_PP_UNITS               [-]            1                 <boolean (0/1)>   Output units [Msol]&[kpc] (1) or [GeV]&[cm] (0)
+gSIM_R_MIN                              [kpc]          0.00000001              <float>           Minimum radial coordinate for 1D profile
+gSIM_R_MAX                              [kpc]          1                <float>           Maximum radial coordinate for 1D profile
+gSIM_OUTPUT_DIR                         [-]            Results/output/           <string or -1>    Output directory (absolute or relative)
