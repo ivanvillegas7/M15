@@ -10,13 +10,6 @@ import numpy as np
 import pandas as pd
 from scipy.stats import f
 from scipy import special
-# Define the p-value
-p_value = 0.68  # Example p-value
-
-# Convert p-value to the number of sigma
-# For one-tailed p-value
-sigma = np.sqrt(2) * special.erfcinv(1 -  p_value)
-sigma
 
 def f_test(var1, var2, n1, n2, model1, model2):
     """
