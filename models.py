@@ -9,8 +9,6 @@ Created on Thu Oct 10 10:35:41 2024
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
-import os
-import imageio.v2 as im
 
 def compare_models(model, bins_):
     
@@ -85,29 +83,22 @@ def compare_models(model, bins_):
     plt.xlabel(r'$\chi^2_\text{reduced}$')
     plt.grid(True)
     plt.legend()
-    plt.savefig(f'Histograms/reduced_chi2_{model}_{bins_}.png')
+    plt.savefig(f'Histograms/{model}/reduced_chi2_{bins_}.pdf')
     plt.close()
     
     return(peak_bin_center, fwhm)
 
-def make_gif(model, bins):
-    
-    if not os.path.exists('Histograms/GIF'):
-        
-        os.makedirs('Histograms/GIF')
-        
-    images=[]
-    
-    for i in range(len(bins)):
-        
-        images.append(im.imread(f'Histograms/reduced_chi2_{model}_{int(bins[i])}.png'))
-        
-    im.mimsave(f'Histograms/GIF/reduced_chi2_{model}.gif',\
-               images, duration=5)
-
 def average(model):
     
-    bins = np.linspace(50, 75, 26)
+    start = 15
+    
+    stop = 95
+    
+    step = 5
+    
+    length = int((stop-start)/step)
+    
+    bins = np.linspace(start, stop, length+1)
     
     peaks = []
     
@@ -130,8 +121,6 @@ def average(model):
     std_FWHMs = np.std(FWHMs)
     
     print(f'\nModel: {model}\nPeak:  {mu_peaks:.5f}±{std_peaks:.5f}\nFWHM:  {mu_FWHMs:.5f}±{std_FWHMs:.5f}')
-    
-    make_gif(model, bins)
     
     return(mu_peaks, std_peaks, mu_FWHMs, std_FWHMs)
 
@@ -178,6 +167,52 @@ def main():
     else:
         
         print(f'\nClosest peak to 1: {1+peak_min}±{peak_std:.5f}\nCorresponds to {models[j_peak]} model.\nSmallest FWHM:  {FWHM_min:.5f}±{FWHM_std:.5f}\nCorresponds to {models[j_FWHM]} model.\n')
-        
-main()
-#average('EINASTO')
+    
+    mean()
+
+#main()
+
+def mean():
+    
+    print('\n----------------------------------------------------------------')
+    
+    n_dat = len(np.loadtxt('Data/M15_data_vel_U21.txt', skiprows=3)[:, 0])
+    
+    n_dof_E = n_dat-7
+    
+    n_dof_B = n_dat-6
+    
+    n_dof_Z = n_dat-9
+    
+    data = pd.read_csv(f'EINASTO/OutputMCMC_EINASTO.dat',\
+                       delim_whitespace=True, skiprows=3)
+    
+    chi2_CLUMPY = data['chi2']
+    
+    chi2_true = -chi2_CLUMPY/2
+    
+    chi2_reduced = chi2_true/n_dof_E
+    
+    print(f'\nEINASTO: {np.mean(chi2_reduced)}\n')
+    
+    data = pd.read_csv(f'BURKERT/OutputMCMC_BURKERT.dat',\
+                       delim_whitespace=True, skiprows=3)
+    
+    chi2_CLUMPY = data['chi2']
+    
+    chi2_true = -chi2_CLUMPY/2
+    
+    chi2_reduced = chi2_true/n_dof_B
+    
+    print(f'\nBURKERT: {np.mean(chi2_reduced)}\n')
+    
+    data = pd.read_csv(f'ZHAO/OutputMCMC_ZHAO.dat',\
+                       delim_whitespace=True, skiprows=3)
+    
+    chi2_CLUMPY = data['chi2']
+    
+    chi2_true = -chi2_CLUMPY/2
+    
+    chi2_reduced = chi2_true/n_dof_Z
+    
+    print(f'\nZHAO: {np.mean(chi2_reduced)}\n')

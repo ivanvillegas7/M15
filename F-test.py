@@ -9,6 +9,14 @@ Created on Tue Nov  5 13:39:19 2024
 import numpy as np
 import pandas as pd
 from scipy.stats import f
+from scipy import special
+# Define the p-value
+p_value = 0.68  # Example p-value
+
+# Convert p-value to the number of sigma
+# For one-tailed p-value
+sigma = np.sqrt(2) * special.erfcinv(1 -  p_value)
+sigma
 
 def f_test(var1, var2, n1, n2, model1, model2):
     """
@@ -49,14 +57,62 @@ def f_test(var1, var2, n1, n2, model1, model2):
     if model2=='ZHAO':
         
         n2 = n2 - 9
+        
+    if model2=='BURKERT':
+        
+        F_stat = (var1/n1)/(var2/n2)
+        df1, df2 = n1 - 1, n2 - 1
+        
+        # Calculate the p-value
+        p_value = 2 * min(f.cdf(F_stat, df1, df2), 1 - f.cdf(F_stat, df1, df2))
+        
+        # Convert p-value to the number of sigma
+        # For one-tailed p-value
+        sigma = np.sqrt(2)*special.erfinv(1-p_value)
+        
+        return F_stat, p_value, sigma
     
-    F_stat = (var1/n1)/(var2/n2)
-    df1, df2 = n1 - 1, n2 - 1
+    if model1=='ZHAO':
+        
+        F_stat = (var1/n1)/(var2/n2)
+        df1, df2 = n1 - 1, n2 - 1
+        
+        # Calculate the p-value
+        p_value = 2 * min(f.cdf(F_stat, df1, df2), 1 - f.cdf(F_stat, df1, df2))
+        
+        # Convert p-value to the number of sigma
+        # For one-tailed p-value
+        sigma = np.sqrt(2)*special.erfinv(1-p_value)
+        
+        return F_stat, p_value, sigma
+        
+    if model1=='BURKERT':
+        
+        F_stat = (var2/n2)/(var1/n1)
+        df2, df1 = n2 - 1, n1 - 1
+        
+        # Calculate the p-value
+        p_value = 2 * min(f.cdf(F_stat, df2, df1), 1 - f.cdf(F_stat, df2, df1))
+        
+        # Convert p-value to the number of sigma
+        # For one-tailed p-value
+        sigma = np.sqrt(2)*special.erfinv(1-p_value)
+        
+        return F_stat, p_value, sigma
     
-    # Calculate the p-value
-    p_value = 2 * min(f.cdf(F_stat, df1, df2), 1 - f.cdf(F_stat, df1, df2))
+    if model2=='ZHAO':
+        
+        F_stat = (var2/n2)/(var1/n1)
+        df2, df1 = n2 - 1, n1 - 1
+        
+        # Calculate the p-value
+        p_value = 2 * min(f.cdf(F_stat, df2, df1), 1 - f.cdf(F_stat, df2, df1))
+        
+        # Convert p-value to the number of sigma
+        # For one-tailed p-value
+        sigma = np.sqrt(2)*special.erfinv(1-p_value)
     
-    return F_stat, p_value
+        return F_stat, p_value, sigma
 
 def compare_models_chi2(chi2_values_list):
     """
@@ -70,7 +126,7 @@ def compare_models_chi2(chi2_values_list):
                pair
     """
     results = {}
-    model_names = ["EINASTO", "BURKERT", "ZHAO"]
+    model_names = ["ZHAO", "EINASTO", "BURKERT"]
     
     # Calculate variances and sample sizes
     variances = [np.var(chi2) for chi2 in chi2_values_list]
@@ -79,10 +135,10 @@ def compare_models_chi2(chi2_values_list):
     # Perform pairwise F-tests between the models
     for i in range(3):
         for j in range(i + 1, 3):
-            F_stat, p_value = f_test(variances[i], variances[j],\
+            F_stat, p_value, sigma = f_test(variances[i], variances[j],\
                                      sample_sizes[i], sample_sizes[j],\
                                      model_names[i], model_names[j])
-            results[f"{model_names[i]} vs {model_names[j]}"] = {"F-statistic": F_stat, "p-value": p_value}
+            results[f"{model_names[i]} vs {model_names[j]}"] = {"F-statistic": F_stat, "p-value": p_value, 'sigma': sigma}
     
     return results
 
@@ -98,10 +154,10 @@ def main():
                            skiprows=3)['chi2']/2
     
     # Run the F-test comparisons
-    results = compare_models_chi2([EINASTO, BURKERT, ZHAO])
+    results = compare_models_chi2([ZHAO, EINASTO, BURKERT])
     
     # Print the results
     for model_pair, stats in results.items():
-        print(f"\n{model_pair}: F-statistic = {stats['F-statistic']:.4f}, p-value = {stats['p-value']:.4f}")
+        print(f"\n{model_pair}: F-statistic = {stats['F-statistic']:.4f}, p-value = {stats['p-value']:.4f}, sigma = {stats['sigma']:.4f}")
         
 main()
