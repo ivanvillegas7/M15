@@ -9,6 +9,7 @@ Created on Thu Oct 10 10:35:41 2024
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
+import joint_hist
 
 def compare_models(model, bins_):
     
@@ -69,24 +70,55 @@ def compare_models(model, bins_):
     # FWHM is the distance between the two points
     fwhm = right_fwhm-left_fwhm
     
-    
-    plt.figure()
-    count, bins, ignored = plt.hist(chi2_reduced, bins=bins_, edgecolor='black',\
-                                    alpha=0.7)
-    max_y = plt.ylim()[1]
-    plt.vlines(peak_bin_center, 0, max_y, ls='dashed',\
-               label=f'Peak: {peak_bin_center:.5f}', color='red')
-    plt.hlines(half_max, right_fwhm, left_fwhm, label=f'FWHM={fwhm:.5f}',\
-               color='orange')
-    plt.ylim(0, max_y)
-    plt.title(r'Reduced $\chi^2$ for the '+f'{model} profile')
-    plt.xlabel(r'$\chi^2_\text{reduced}$')
-    plt.grid(True)
-    plt.legend()
-    plt.savefig(f'Histograms/{model}/reduced_chi2_{bins_}.pdf')
-    plt.close()
-    
     return(peak_bin_center, fwhm)
+
+def mean():
+    
+    print('----------------------------------------------------------------')
+    
+    print('\nMean'+r' $\chi_\text{reduced}^2$')
+    
+    n_dat = len(np.loadtxt('Data/M15_data_vel_U21.txt', skiprows=3)[:, 0])
+    
+    n_dof_E = n_dat-7
+    
+    n_dof_B = n_dat-6
+    
+    n_dof_Z = n_dat-9
+    
+    data = pd.read_csv(f'EINASTO/OutputMCMC_EINASTO.dat',\
+                       delim_whitespace=True, skiprows=3)
+    
+    chi2_CLUMPY = data['chi2']
+    
+    chi2_true = -chi2_CLUMPY/2
+    
+    chi2_reduced = chi2_true/n_dof_E
+    
+    print(f'\nEINASTO: {np.mean(chi2_reduced)}\n')
+    
+    data = pd.read_csv(f'BURKERT/OutputMCMC_BURKERT.dat',\
+                       delim_whitespace=True, skiprows=3)
+    
+    chi2_CLUMPY = data['chi2']
+    
+    chi2_true = -chi2_CLUMPY/2
+    
+    chi2_reduced = chi2_true/n_dof_B
+    
+    print(f'\nBURKERT: {np.mean(chi2_reduced)}\n')
+    
+    data = pd.read_csv(f'ZHAO/OutputMCMC_ZHAO.dat',\
+                       delim_whitespace=True, skiprows=3)
+    
+    chi2_CLUMPY = data['chi2']
+    
+    chi2_true = -chi2_CLUMPY/2
+    
+    chi2_reduced = chi2_true/n_dof_Z
+    
+    print(f'\nZHAO: {np.mean(chi2_reduced)}\n')
+
 
 def average(model):
     
@@ -105,6 +137,8 @@ def average(model):
     FWHMs = []
     
     for i in range(len(bins)):
+        
+        joint_hist.joint_histogram(int(bins[i]))
         
         results = compare_models(model, int(bins[i]))
         
@@ -170,49 +204,6 @@ def main():
     
     mean()
 
-#main()
-
-def mean():
+if __name__ == "__main__":
     
-    print('\n----------------------------------------------------------------')
-    
-    n_dat = len(np.loadtxt('Data/M15_data_vel_U21.txt', skiprows=3)[:, 0])
-    
-    n_dof_E = n_dat-7
-    
-    n_dof_B = n_dat-6
-    
-    n_dof_Z = n_dat-9
-    
-    data = pd.read_csv(f'EINASTO/OutputMCMC_EINASTO.dat',\
-                       delim_whitespace=True, skiprows=3)
-    
-    chi2_CLUMPY = data['chi2']
-    
-    chi2_true = -chi2_CLUMPY/2
-    
-    chi2_reduced = chi2_true/n_dof_E
-    
-    print(f'\nEINASTO: {np.mean(chi2_reduced)}\n')
-    
-    data = pd.read_csv(f'BURKERT/OutputMCMC_BURKERT.dat',\
-                       delim_whitespace=True, skiprows=3)
-    
-    chi2_CLUMPY = data['chi2']
-    
-    chi2_true = -chi2_CLUMPY/2
-    
-    chi2_reduced = chi2_true/n_dof_B
-    
-    print(f'\nBURKERT: {np.mean(chi2_reduced)}\n')
-    
-    data = pd.read_csv(f'ZHAO/OutputMCMC_ZHAO.dat',\
-                       delim_whitespace=True, skiprows=3)
-    
-    chi2_CLUMPY = data['chi2']
-    
-    chi2_true = -chi2_CLUMPY/2
-    
-    chi2_reduced = chi2_true/n_dof_Z
-    
-    print(f'\nZHAO: {np.mean(chi2_reduced)}\n')
+    main()
