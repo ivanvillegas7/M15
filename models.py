@@ -10,6 +10,9 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 import joint_hist
+import joint_J
+import F_test
+import comparison_plots
 
 def compare_models(model, bins_):
     
@@ -160,6 +163,10 @@ def average(model):
 
 def main():
     
+    comparison_plots.main()
+    
+    joint_J.joint_J()
+    
     models = ['EINASTO', 'BURKERT', 'ZHAO']
     
     peak = []
@@ -203,6 +210,8 @@ def main():
         print(f'\nClosest peak to 1: {1+peak_min}±{peak_std:.5f}\nCorresponds to {models[j_peak]} model.\nSmallest FWHM:  {FWHM_min:.5f}±{FWHM_std:.5f}\nCorresponds to {models[j_FWHM]} model.\n')
     
     mean()
+    
+    F_test.main()
 
 if __name__ == "__main__":
     

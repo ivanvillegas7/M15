@@ -73,4 +73,6 @@ def joint_J():
     plt.ylim(ymin, ymax)
     plt.savefig('joint_J-factorprofile.pdf')
     
-joint_J()
+if __name__ == "__main__":
+    
+    joint_J()
