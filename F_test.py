@@ -25,6 +25,7 @@ def f_test(var1, var2, n1, n2, model1, model2):
     Returns:
     - F_stat: calculated F statistic
     - p_value: p-value for the test
+    - sigma: sigma for the test
     """
     
     if model1=='EINASTO':
@@ -151,7 +152,7 @@ def main():
     
     # Print the results
     for model_pair, stats in results.items():
-        print(f"\n{model_pair}: F-statistic = {stats['F-statistic']:.4f}, p-value = {stats['p-value']:.4f}, sigma = {stats['sigma']:.4f}")
+        print(f"{model_pair}: F-statistic = {stats['F-statistic']:.4f}, p-value = {stats['p-value']:.4f}, σ = {stats['sigma']:.4f}")
         
 if __name__ == "__main__":
     

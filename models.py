@@ -8,11 +8,12 @@ Created on Thu Oct 10 10:35:41 2024
 
 import numpy as np
 import pandas as pd
-from matplotlib import pyplot as plt
 import joint_hist
 import joint_J
 import F_test
+import Z_test
 import comparison_plots
+
 
 def compare_models(model, bins_):
     
@@ -79,7 +80,7 @@ def mean():
     
     print('----------------------------------------------------------------')
     
-    print('\nMean'+r' $\chi_\text{reduced}^2$')
+    print(r"\nMean $\chi_\text{reduced}^2$")
     
     n_dat = len(np.loadtxt('Data/M15_data_vel_U21.txt', skiprows=3)[:, 0])
     
@@ -89,7 +90,7 @@ def mean():
     
     n_dof_Z = n_dat-9
     
-    data = pd.read_csv(f'EINASTO/OutputMCMC_EINASTO.dat',\
+    data = pd.read_csv('EINASTO/OutputMCMC_EINASTO.dat',\
                        delim_whitespace=True, skiprows=3)
     
     chi2_CLUMPY = data['chi2']
@@ -98,9 +99,9 @@ def mean():
     
     chi2_reduced = chi2_true/n_dof_E
     
-    print(f'\nEINASTO: {np.mean(chi2_reduced)}\n')
+    print(f'\nEINASTO: {np.mean(chi2_reduced)}')
     
-    data = pd.read_csv(f'BURKERT/OutputMCMC_BURKERT.dat',\
+    data = pd.read_csv('BURKERT/OutputMCMC_BURKERT.dat',\
                        delim_whitespace=True, skiprows=3)
     
     chi2_CLUMPY = data['chi2']
@@ -109,9 +110,9 @@ def mean():
     
     chi2_reduced = chi2_true/n_dof_B
     
-    print(f'\nBURKERT: {np.mean(chi2_reduced)}\n')
+    print(f'\nBURKERT: {np.mean(chi2_reduced)}')
     
-    data = pd.read_csv(f'ZHAO/OutputMCMC_ZHAO.dat',\
+    data = pd.read_csv('ZHAO/OutputMCMC_ZHAO.dat',\
                        delim_whitespace=True, skiprows=3)
     
     chi2_CLUMPY = data['chi2']
@@ -120,7 +121,9 @@ def mean():
     
     chi2_reduced = chi2_true/n_dof_Z
     
-    print(f'\nZHAO: {np.mean(chi2_reduced)}\n')
+    print(f'\nZHAO:    {np.mean(chi2_reduced)}\n')
+    
+    print('----------------------------------------------------------------\n')
 
 
 def average(model):
@@ -212,6 +215,8 @@ def main():
     mean()
     
     F_test.main()
+    
+    Z_test.main()
 
 if __name__ == "__main__":
     
