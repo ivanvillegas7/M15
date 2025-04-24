@@ -14,8 +14,8 @@ def Einasto():
     data = np.loadtxt('EINASTO/Results/output/OutputMCMC.dat.Jalphaint_cls.output',\
                       skiprows=3)
     
-    plt.plot(data[:, 0], data[:, 1], color='blue', label='Median')
-    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$65\%$ CL',\
+    plt.plot(data[:, 0], data[:, 1], color='blue', label='EINASTO')
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$68\%$ CL',\
                      color='lightblue', alpha=0.5)
     
 def Burkert():
@@ -23,8 +23,8 @@ def Burkert():
     data = np.loadtxt('BURKERT/Results/output/OutputMCMC_BURKERT.dat.Jalphaint_cls.output',\
                       skiprows=3)
     
-    plt.plot(data[:, 0], data[:, 1], color='green', label='Median')
-    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$65\%$ CL',\
+    plt.plot(data[:, 0], data[:, 1], color='green', label='BURKERT')
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$68\%$ CL',\
                      color='lightgreen', alpha=0.5)
     
 def Zhao():
@@ -32,8 +32,8 @@ def Zhao():
     data = np.loadtxt('ZHAO/Results/output/OutputMCMC_ZHAO.dat.Jalphaint_cls.output',\
                       skiprows=3)
     
-    plt.plot(data[:, 0], data[:, 1], color='orange', label='Median')
-    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$65\%$ CL',\
+    plt.plot(data[:, 0], data[:, 1], color='orange', label='ZHAO')
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$68\%$ CL',\
                      color='wheat', alpha=0.5)
     
     

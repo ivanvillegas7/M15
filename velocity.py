@@ -43,7 +43,7 @@ def main():
     plt.legend()
     plt.xlim(-200, 0)
     plt.ylim(0, 150)
-    plt.savefig('Results/Velocity distribution.pdf')
+    plt.savefig('Velocity distribution.pdf')
     
     print(sigma)
     

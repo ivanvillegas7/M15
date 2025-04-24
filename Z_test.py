@@ -35,7 +35,7 @@ def z_test(data1, df1, data2, df2):
     var2 = np.std(data2)**2
 
     # Standard error for the difference in means
-    se_diff = np.sqrt(var1/len(data1)+var2/len(data2))
+    se_diff = np.sqrt(var1/(len(data1))+var2/(len(data2)))
 
     # Z-statistic
     z_stat = (mean1-mean2)/se_diff

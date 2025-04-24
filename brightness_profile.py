@@ -57,6 +57,6 @@ def main():
     plt.xscale('log')
     plt.yscale('log')
     plt.legend()
-    plt.savefig('Results/brightness.pdf')
+    plt.savefig('brightness.pdf')
     
 main()

@@ -10,8 +10,8 @@ import numpy as np
 import pandas as pd
 import joint_hist
 import joint_J
+import joint_rho
 import F_test
-import Z_test
 import comparison_plots
 
 
@@ -168,6 +168,8 @@ def main():
     
     comparison_plots.main()
     
+    joint_rho.joint_rho()
+    
     joint_J.joint_J()
     
     models = ['EINASTO', 'BURKERT', 'ZHAO']
@@ -215,8 +217,6 @@ def main():
     mean()
     
     F_test.main()
-    
-    Z_test.main()
 
 if __name__ == "__main__":
     
