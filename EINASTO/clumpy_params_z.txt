@@ -1,14 +1,8 @@
 # CLUMPY, version v3.1
-# Standard parameter file for simulation mode s6
-# Execute with $CLUMPY/bin/clumpy -s6 -i clumpy_params_s6.txt 
+# Standard parameter file for simulation mode z
+# Execute with $CLUMPY/bin/clumpy -z -i clumpy_params_z.txt 
 
 # Variable name                         Unit           Value             (Format)          (Comment)
-
-#------------------------------------------------------------------------------
-# Dark Matter global parameters
-#------------------------------------------------------------------------------
-gDM_RHOSAT                              [Msol/kpc^3]   1e+19             <float>           Dark Matter saturation density
-gDM_FLAG_TIDALCUT                       [-]            kNONE             <string>          If subhalo Rvir is truncated by host potential
 
 #------------------------------------------------------------------------------
 # Particle physics parameters
@@ -25,15 +19,12 @@ gDM_FLAG_TIDALCUT                       [-]            kNONE             <string
 #  22: nuenue       23: numunumu    24: nutaunutau
 #  25: VV4e         26: VV4mu       27: VV4tau
 #------------------------------------------------------------------------------
+gPP_BR                                  [-]            0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    <comma-sep list>  Branching channel ratio
+gPP_FLAG_SPECTRUMMODEL                  [-]            kCIRELLI11_EW     <string>          Spectrum model
+gPP_DM_ANNIHIL_DELTA                    [-]            2                 <integer>         Majorana (2) or Dirac (4) particle
+gPP_DM_ANNIHIL_SIGMAV_CM3PERS           [cm^3/s]       3e-26             <float>           Annihilation cross section
 gPP_DM_IS_ANNIHIL_OR_DECAY              [-]            1                 <boolean (0/1)>   Dark Matter Model (0: Decay, 1: Annihilation)
-
-#------------------------------------------------------------------------------
-# Statistical analysis of single halo
-#------------------------------------------------------------------------------
-gSTAT_CL_LIST                           [-]            0.68,0.95         <string>          List of x% CL to be drawn
-gSTAT_FILES                             [-]            $HOME/Desktop/MAGIC/CLUMPY/EINASTO/OutputMCMC_044.dat    <string>          Stat. analysis file / file containing filenames
-gSTAT_MODE                              [-]            0                 <integer>         Mode: 0:PDF, 1:chi2, 2:both, 3:mean&dispersion
-gSTAT_IS_COMBINE_CHAINS                 [-]            0                 <boolean (0/1)>   If true, analyze list of chains together
+gPP_DM_MASS_GEV                         [GeV]          100               <float>           [GeV] dark matter particle mass
 
 #------------------------------------------------------------------------------
 # Simulation parameters
@@ -42,9 +33,14 @@ gSTAT_IS_COMBINE_CHAINS                 [-]            0                 <boolea
 #  gSIM_OUTPUT_DIR: when set to -1, set to folder from where clumpy is executed.
 #  gSIM_SEED: if=0, seed is chosen from computer clock (for drawing clumps)
 #------------------------------------------------------------------------------
-gSIM_ALPHAINT_MIN_DEG                   [deg]          0.01              <float>           Minimum alpha_int value for 1D profile
-gSIM_ALPHAINT_MAX_DEG                   [deg]          2                 <float>           Maximum alpha_int value for 1D profile
-gSIM_NX                                 [-]            20                <integer>         # of points at which 1D calculation is done
+gSIM_FLUX_EMIN_GEV                      [GeV]          1                 <float>           Lower limit for integrated flux & shown spectrum
+gSIM_FLUX_EMAX_GEV                      [GeV]          99                <float>           Upper limit for integrated flux & shown spectrum
+gSIM_FLUX_FLAG_FINALSTATE               [-]            kGAMMA            <string>          Considered final state particle
+gSIM_NX                                 [-]            100               <integer>         # of points at which 1D calculation is done
+gSIM_XPOWER                             [-]            2                 <float>           Multiply dependent variable with power of x val
 gSIM_IS_ASTRO_OR_PP_UNITS               [-]            0                 <boolean (0/1)>   Output units [Msol]&[kpc] (1) or [GeV]&[cm] (0)
+gSIM_JFACTOR                            [variable]     1e+17             <double>          Input J/D-Factor for plotting flux spectrum
+gSIM_REDSHIFT                           [-]            0                 <float>           Redshift of object(s) in the calculation
 gSIM_EPS                                [-]            0.01              <float>           Numeric precision of the simulation
+gSIM_IS_WRITE_ROOTFILES                 [-]            1                 <boolean (0/1)>   Write output additionally in ROOT format
 gSIM_OUTPUT_DIR                         [-]            Results/output/           <string or -1>    Output directory (absolute or relative)

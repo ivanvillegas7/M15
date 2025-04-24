@@ -31,7 +31,7 @@ gPP_DM_IS_ANNIHIL_OR_DECAY              [-]            1                 <boolea
 # Statistical analysis of single halo
 #------------------------------------------------------------------------------
 gSTAT_CL_LIST                           [-]            0.68,0.95         <string>          List of x% CL to be drawn
-gSTAT_FILES                             [-]            $HOME/Desktop/MAGIC/CLUMPY/OutputMCMC_058.dat    <string>          Stat. analysis file / file containing filenames
+gSTAT_FILES                             [-]            $HOME/Desktop/MAGIC/CLUMPY/EINASTO/OutputMCMC_058.dat    <string>          Stat. analysis file / file containing filenames
 gSTAT_MODE                              [-]            0                 <integer>         Mode: 0:PDF, 1:chi2, 2:both, 3:mean&dispersion
 gSTAT_IS_COMBINE_CHAINS                 [-]            0                 <boolean (0/1)>   If true, analyze list of chains together
 

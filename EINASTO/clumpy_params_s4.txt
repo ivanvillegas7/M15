@@ -13,6 +13,6 @@ gDM_FLAG_TIDALCUT                       [-]            kNONE             <string
 # Statistical analysis of single halo
 #------------------------------------------------------------------------------
 gSTAT_CL                                [-]            0.68              <float>           CL percentage for which to search the min/max
-gSTAT_FILES                             [-]            $HOME/Desktop/MAGIC/CLUMPY/OutputMCMC.dat    <string>          Stat. analysis file / file containing filenames
+gSTAT_FILES                             [-]            $HOME/Desktop/MAGIC/CLUMPY/EINASTO/OutputMCMC.dat    <string>          Stat. analysis file / file containing filenames
 gSTAT_MODE                              [-]            0                 <integer>         Mode: 0:PDF, 1:chi2, 2:both, 3:mean&dispersion
 gSTAT_IS_COMBINE_CHAINS                 [-]            0                 <boolean (0/1)>   If true, analyze list of chains together

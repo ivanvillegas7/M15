@@ -5,15 +5,14 @@ import numpy as np
     
 def main():
     
-    #data = np.loadtxt('Results/output/OutputMCMC.dat.rhor_cls.output',\
-    data = np.loadtxt('Results/output/OutputMCMC_Burkert.dat.rhor_cls.output',\
+    data = np.loadtxt('Results/output/OutputMCMC.dat.rhor_cls.output',\
                       skiprows=3)
     plt.figure()
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 1], color='black')
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 5], color='blue')
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 6], color='blue')
     plt.fill_between(1e3*data[:, 0], 1e-9*data[:, 5], 1e-9*data[:, 6],\
-                     label=r'$65\%$ CL', color='lightblue')
+                     label=r'$68\%$ CL', color='lightblue')
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 7], color='orange')
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 8], color='orange')
     plt.fill_between(1e3*data[:, 0], 1e-9*data[:, 7], 1e-9*data[:, 5],\
@@ -21,7 +20,7 @@ def main():
     plt.fill_between(1e3*data[:, 0], 1e-9*data[:, 6], 1e-9*data[:, 8],\
                      color='wheat')
     plt.vlines(1e3*0.044, 1e-3, 1e8, ls='dashdot',\
-               label=r'$r=044\text{ pc}$', color='grey')
+               label=r'$r=44\text{ pc}$', color='grey')
     plt.vlines(1e3*0.058, 1e-3, 1e86, ls='dashdot',\
                label=r'$r=58\text{ pc}$', color='red')
     plt.vlines(1e3*0.067, 1e-3, 1e8, ls='dashdot',\

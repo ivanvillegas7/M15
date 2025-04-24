@@ -3,6 +3,43 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+def individual_J(R_t: str):
+    
+    data = np.loadtxt(f'Results/output/OutputMCMC_0{R_t}.dat.Jalphaint_cls.output',\
+                      skiprows=3)
+    alpha_tidal: float = float(R_t)*180/(np.pi*10.94*1e3)
+        
+    plt.figure()
+    plt.plot(data[:, 0], data[:, 1],  label='Median',\
+             linewidth=3.0, color='red')
+    plt.plot(data[:, 0], data[:, 5], ls='dashed', linewidth=3.0, color='blue')
+    plt.plot(data[:, 0], data[:, 6], ls='dashed', linewidth=3.0, color='blue')
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$68\%$ CL',\
+                     color='lightblue', alpha=0.5)
+    plt.plot(data[:, 0], data[:, 7], ls='dotted', linewidth=3.0, color='orange')
+    plt.plot(data[:, 0], data[:, 8], ls='dotted', linewidth=3.0, color='orange')
+    plt.fill_between(data[:, 0], data[:, 6], data[:, 8], label=r'$90\%$ CL',\
+                     color='wheat', alpha=0.5)
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 7], color='wheat',\
+                     alpha=0.5)
+    plt.vlines(0.1, plt.ylim()[0], plt.ylim()[1], ls='dashdot',\
+               label=r'$\alpha_\text{int}=0.1^\text{o}$', color='black',\
+                   linewidth=3.0)
+    plt.vlines(0.5, plt.ylim()[0], plt.ylim()[1], ls='dashdot',\
+               label=r'$\alpha_\text{int}=0.5^\text{o}$', color='grey',\
+                   linewidth=3.0)
+    plt.vlines(alpha_tidal, plt.ylim()[0], plt.ylim()[1], ls='dashdot',\
+               label=r'$\alpha_\text{int}=\alpha_t\simeq$'+f'{alpha_tidal:.2f}'+r'$^\text{o}$',\
+                   color='navy', linewidth=3.0)     
+    plt.xlabel(r'$\alpha_\text{int}$ [deg]')
+    plt.ylabel(r'$J(\alpha_\text{int})$ [GeV$^2$ cm$^{-5}$]')
+    plt.legend()
+    plt.grid(True)
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.xlim(1e-2, 2)
+    plt.savefig(f'Results/0{R_t}_Results/J-factor_0{R_t}.pdf')
+
 def all_J():
 
     files: list[str] = ['044', '058', '067', '080']
@@ -53,7 +90,7 @@ def combined_data():
     plt.plot(data[:, 0], data[:, 1], color='black', label='Median')
     plt.plot(data[:, 0], data[:, 5], color='blue')
     plt.plot(data[:, 0], data[:, 6], color='blue')
-    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$65\%$ CL',\
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$68\%$ CL',\
                      color='lightblue')
     plt.plot(data[:, 0], data[:, 7], color='orange')
     plt.plot(data[:, 0], data[:, 8], color='orange')
@@ -88,7 +125,7 @@ def combined_data():
     plt.plot(data[:, 0], data[:, 1], color='black', label='Median')
     plt.plot(data[:, 0], data[:, 5], color='blue')
     plt.plot(data[:, 0], data[:, 6], color='blue')
-    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$65\%$ CL',\
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$68\%$ CL',\
                      color='lightblue')
     plt.plot(data[:, 0], data[:, 7], color='orange')
     plt.plot(data[:, 0], data[:, 8], color='orange')
@@ -130,6 +167,12 @@ def combined_data():
     plt.savefig('Results/J-factor_all_combined_long.pdf')
     
 def main():
+    
+    files: list[str] = ['44', '58', '67', '80']
+    
+    for file in files:
+    
+        individual_J(file)
     
     all_J()
     
