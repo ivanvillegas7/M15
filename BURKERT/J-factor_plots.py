@@ -12,7 +12,7 @@ def main():
     plt.plot(data[:, 0], data[:, 1], color='black', label='Median')
     plt.plot(data[:, 0], data[:, 5], color='blue')
     plt.plot(data[:, 0], data[:, 6], color='blue')
-    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$65\%$ CL',\
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$68\%$ CL',\
                      color='lightblue')
     plt.plot(data[:, 0], data[:, 7], color='orange')
     plt.plot(data[:, 0], data[:, 8], color='orange')
@@ -41,7 +41,7 @@ def main():
     plt.plot(data[:, 0], data[:, 1], color='black', label='Median')
     plt.plot(data[:, 0], data[:, 5], color='blue')
     plt.plot(data[:, 0], data[:, 6], color='blue')
-    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$65\%$ CL',\
+    plt.fill_between(data[:, 0], data[:, 5], data[:, 6], label=r'$68\%$ CL',\
                      color='lightblue')
     plt.plot(data[:, 0], data[:, 7], color='orange')
     plt.plot(data[:, 0], data[:, 8], color='orange')

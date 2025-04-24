@@ -13,7 +13,7 @@ def main():
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 5], color='blue')
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 6], color='blue')
     plt.fill_between(1e3*data[:, 0], 1e-9*data[:, 5], 1e-9*data[:, 6],\
-                     label=r'$65\%$ CL', color='lightblue')
+                     label=r'$68\%$ CL', color='lightblue')
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 7], color='orange')
     plt.plot(1e3*data[:, 0], 1e-9*data[:, 8], color='orange')
     plt.fill_between(1e3*data[:, 0], 1e-9*data[:, 7], 1e-9*data[:, 5],\
